@@ -1,9 +1,16 @@
+import { useState } from 'react';
 import Player from './Components/Player.jsx';
+import GameBoard from './Components/Gameboard.jsx';
+
 const symbols = Array.from({ length: 200 }, (_, i) =>
   (i * 7) % 3 === 0 ? 'O' : 'X'
 );
 
 function App() {
+  const[activePlayer,setActivePlayer]=useState('X');
+  function handleSelector(){
+    
+  }
   return (
     <div className="relative min-h-screen overflow-hidden bg-linear-to-br from-slate-900 to-slate-800 text-white">
       <div
@@ -35,6 +42,7 @@ function App() {
               <Player initialName="Player 1" symbol="X" />
               <Player initialName="Player 2" symbol="O" />
             </ol>
+            <GameBoard />
           </div>
         </main>
       </div>
