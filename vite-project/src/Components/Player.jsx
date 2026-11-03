@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Player({ initialName, symbol }) {
+export default function Player({ initialName, symbol,isActive }) {
   const [isPlayer,setIsPlayer]=useState(initialName);
   const [isEditing, setIsEditing] = useState(false);
   function handleName(event){
@@ -28,7 +28,7 @@ export default function Player({ initialName, symbol }) {
   }
 
   return (
-    <li className="flex flex-1 items-center justify-between gap-3 rounded-lg bg-slate-800 px-4 py-3">
+    <li className={isActive ? "ring-2 right-amber-400":""}>
       <span className="player flex items-center gap-3">
         {playerName}
         <span className="player-symbol text-xl font-bold text-amber-400">
