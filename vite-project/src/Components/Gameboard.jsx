@@ -1,33 +1,19 @@
-const initialGameBoard = [
-  [null, null, null],
-  [null, null, null],
-  [null, null, null],
-];
-
-export default function GameBoard({onSelectSquare}) {
-   /*  const[gameBoard,setGameBoard]=useState(initialGameBoard);
-    //We use an updater function because the new state depends on the previous state. We never mutate state directly, because React relies on reference changes to detect updates. 
-    // Since the board is a 2D array, a shallow copy is not enough: the rows are shared by reference. So we copy the outer array and each inner array, update the copy, and return it.
-    function handleGame(rowIndex,colIndex){
-        setGameBoard((prevGame)=>{
-            const updateGame=[...prevGame.map(innerArray=>[...innerArray])];
-            updateGame[rowIndex][colIndex]=activePlayer;
-            return updateGame;
-        });
-        onSelectSquare(); */
-
-
+export default function GameBoard({ board, onSelectSquare, disabled }) {
   return (
     <ol id="game-board" className="mx-auto mt-6 flex w-fit flex-col gap-2">
-      {gameBoard.map((row, rowIndex) => (
+      {board.map((row, rowIndex) => (
         <li key={rowIndex}>
           <ol className="flex gap-2">
             {row.map((playerSymbol, colIndex) => (
               <li key={colIndex}>
                 <button
-                  className="h-24 w-24 rounded-lg bg-slate-800 text-4xl font-bold text-amber-400 shadow transition hover:bg-slate-700 active:scale-95"
-                  onClick={()=>handleGame(rowIndex,colIndex)}>{playerSymbol}
-                
+                  className={`h-24 w-24 rounded-lg bg-slate-800 text-4xl font-bold shadow transition hover:bg-slate-700 active:scale-95 disabled:cursor-not-allowed disabled:hover:bg-slate-800 disabled:active:scale-100 ${
+                    playerSymbol === 'O' ? 'text-sky-400' : 'text-amber-400'
+                  }`}
+                  onClick={() => onSelectSquare(rowIndex, colIndex)}
+                  disabled={playerSymbol !== null || disabled}
+                >
+                  {playerSymbol}
                 </button>
               </li>
             ))}
@@ -36,4 +22,4 @@ export default function GameBoard({onSelectSquare}) {
       ))}
     </ol>
   );
-} 
+}

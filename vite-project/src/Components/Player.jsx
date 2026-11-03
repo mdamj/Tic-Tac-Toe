@@ -1,4 +1,4 @@
-import { useState } from "react";
+/* import { useState } from "react";
 
 export default function Player({ initialName, symbol,isActive }) {
   const [isPlayer,setIsPlayer]=useState(initialName);
@@ -40,6 +40,52 @@ export default function Player({ initialName, symbol,isActive }) {
         className="rounded bg-amber-400 px-3 py-1 text-sm font-semibold text-slate-900 transition hover:bg-amber-300"
       >
         {isEditing?'Save' : 'Edit'}
+      </button>
+    </li>
+  );
+} */
+import { useState } from 'react';
+
+export default function Player({ name, symbol, isActive, onChangeName }) {
+  const [isEditing, setIsEditing] = useState(false);
+
+  function handleEditClick() {
+    setIsEditing((editing) => !editing);
+  }
+
+  function handleChange(event) {
+    onChangeName(symbol, event.target.value);
+  }
+
+  const nameElement = isEditing ? (
+    <input
+      type="text"
+      required
+      value={name}
+      onChange={handleChange}
+      className="w-32 rounded bg-slate-900 px-2 py-1 text-white outline-none"
+    />
+  ) : (
+    <span className="px-2 py-1 font-semibold">{name}</span>
+  );
+
+  return (
+    <li
+      className={`flex flex-1 items-center justify-between rounded-lg border-2 px-4 py-3 transition ${
+        isActive
+          ? 'border-amber-400 bg-slate-800'
+          : 'border-transparent bg-slate-800/50'
+      }`}
+    >
+      <span className="flex items-center gap-2">
+        {nameElement}
+        <span className="text-xl font-bold text-amber-400">{symbol}</span>
+      </span>
+      <button
+        onClick={handleEditClick}
+        className="text-sm text-slate-300 hover:text-white"
+      >
+        {isEditing ? 'Save' : 'Edit'}
       </button>
     </li>
   );
